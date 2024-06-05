@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DS khach hang</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+</head>
+<body>
+<form id="add-customer" style="display: none">
+    <h1>Form create</h1>
+    <table>
+        <tr>
+            <td><label for="name">Name:</label></td>
+            <td><input type="text" id="name" placeholder="name"></td>
+        </tr>
+        <tr>
+            <td><label for="age">Age:</label></td>
+            <td><input type="number" id="age" placeholder="age"></td>
+        </tr>
+        <tr>
+            <td><label for="gender">Gender:</label></td>
+            <td><input type="text" id="gender" placeholder="gender"></td>
+        </tr>
+        <tr>
+        <tr>
+            <td><label for="address">Address:</label></td>
+            <td><input type="text" id="address" placeholder="address"></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Add" onclick="addCustomer()"></td>
+        </tr>
+    </table>
+</form>
+<!-- Form Cập Nhật Khách Hàng -->
+<div id="update-customer" style="display: none;">
+    <h2>Update Customer</h2>
+    <form id="update-form">
+        <input type="hidden" id="update-id">
+        <label for="update-name">Name:</label>
+        <input type="text" id="update-name" required><br>
+        <label for="update-age">Age:</label>
+        <input type="number" id="update-age" required><br>
+        <label for="update-gender">Gender:</label>
+        <input type="text" id="update-gender" required><br>
+        <label for="update-address">Address:</label>
+        <input type="text" id="update-address" required><br>
+        <button type="submit">Update Customer</button>
+    </form>
+</div>
+<h1 id="title">List smartphone</h1>
+<div id="div-btn">
+    <button onclick="showAllCustomer()" id="display">Display list customer</button>
+    <button onclick="displayFormCreate()" id="display-create">Create new smartphone</button>
+</div>
+<div id="customerList"></div>
+<script src="customer.js"></script>
+</body>
+</html>
