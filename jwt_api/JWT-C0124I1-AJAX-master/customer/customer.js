@@ -114,11 +114,12 @@ function deleteSmartphone(id) {
         }
     });
 }
+let currentUpdateId = null;
 
 // update
 function displayUpdateForm(customer) {
-
-    document.getElementById("update-id").value = customer.id;
+    currentUpdateId = customer.id;
+    // document.getElementById("update-id").value = customer.id;
     document.getElementById("update-name").value = customer.name;
     document.getElementById("update-age").value = customer.age;
     document.getElementById("update-gender").value = customer.gender;
@@ -168,7 +169,7 @@ function updateCustomer(event) {
         },
         type: "PUT",
         data: JSON.stringify(updatedCustomer),
-        url: `http://localhost:8080/api/customers/${id}`,
+        url: `http://localhost:8080/api/customers/${currentUpdateId }`,
         success: function () {
             showAllCustomer();
 
