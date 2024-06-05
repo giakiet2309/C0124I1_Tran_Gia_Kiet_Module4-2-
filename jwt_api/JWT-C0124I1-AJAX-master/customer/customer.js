@@ -117,14 +117,14 @@ function deleteSmartphone(id) {
 
 // update
 function displayUpdateForm(customer) {
-    // Điền thông tin khách hàng hiện tại vào form
+
     document.getElementById("update-id").value = customer.id;
     document.getElementById("update-name").value = customer.name;
     document.getElementById("update-age").value = customer.age;
     document.getElementById("update-gender").value = customer.gender;
     document.getElementById("update-address").value = customer.address;
 
-    // Hiển thị form cập nhật và ẩn danh sách khách hàng
+
     document.getElementById('customerList').style.display = "none";
     document.getElementById('update-customer').style.display = "block";
     document.getElementById('display-create').style.display = "none";
@@ -146,7 +146,7 @@ function updateCustomer(event) {
     // Ngăn chặn sự kiện mặc định của form
     event.preventDefault();
 
-    // Lấy dữ liệu từ form cập nhật
+
     let id = document.getElementById("update-id").value;
     let name = document.getElementById("update-name").value;
     let age = +document.getElementById("update-age").value;
@@ -159,7 +159,7 @@ function updateCustomer(event) {
         "address": address,
     };
 
-    // Gọi AJAX để cập nhật khách hàng
+
     $.ajax({
         headers: {
             "Authorization": "Bearer " + token,
@@ -171,7 +171,7 @@ function updateCustomer(event) {
         url: `http://localhost:8080/api/customers/${id}`,
         success: function () {
             showAllCustomer();
-            // Ẩn form cập nhật và hiển thị danh sách khách hàng
+
             document.getElementById('update-customer').style.display = "none";
             document.getElementById('customerList').style.display = "block";
             document.getElementById('display-create').style.display = "block";
