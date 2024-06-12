@@ -34,13 +34,13 @@ public class CustomerController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Customer updatedCustomer) {
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Customer customer) {
         Customer existingCustomer = customerService.findOne(id);
         if (existingCustomer == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        updatedCustomer.setId(id);
-        customerService.save(updatedCustomer);
+        customer.setId(id);
+        customerService.save(customer);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

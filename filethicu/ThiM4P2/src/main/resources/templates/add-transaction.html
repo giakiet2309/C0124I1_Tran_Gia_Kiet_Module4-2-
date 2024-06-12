@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input, select {
+            width: calc(100% - 12px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="date"] {
+            /* Adjust height for date input */
+            height: 38px;
+        }
+
+        input[type="radio"] {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #errorMessages {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Thêm mới giao dịch</title>
+</head>
+<body>
+<h2>Thêm mới giao dịch</h2>
+
+<form action="#" th:action="@{/transactions/add}" th:object="${transaction}" method="post" onsubmit="return validateForm()">
+    <!-- Thêm trường ẩn cho id -->
+    <input type="hidden" th:field="*{id}">
+
+    <div>
+        <label for="maGiaoDich">Mã giao dịch:</label>
+        <input type="text" id="maGiaoDich" name="maGiaoDich" pattern="MGD-\d{4}" required>
+    </div>
+    <div>
+        <label for="khachHang">Tên khách hàng:</label>
+        <select id="khachHang" name="maKhachHang" required >
+            <option value="" disabled selected hidden>Chọn tên khách hàng</option>
+            <!-- Dữ liệu khách hàng sẽ được load từ controller -->
+            <option th:each="khachHang , loop : ${listKhachHang}" th:value="${khachHang.maKhachHang}" th:text="${khachHang.tenKhachHang}"></option>
+        </select>
+    </div>
+    <div>
+        <label>Loại dịch vụ:</label><br>
+        <input type="radio" id="loaiDichVuDat" name="loaiDichVu" value="Dat" required>
+        <label for="loaiDichVuDat">Đất</label><br>
+        <input type="radio" id="loaiDichVuNhaDat" name="loaiDichVu" value="NhaDat" required>
+        <label for="loaiDichVuNhaDat">Nhà và đất</label><br>
+    </div>
+    <div>
+        <label for="ngayGiaoDich">Ngày giao dịch:</label>
+        <input type="date" id="ngayGiaoDich" name="ngayGiaoDich" required>
+    </div>
+    <div>
+        <label for="donGia">Đơn giá (VND/m2):</label>
+        <input type="number" id="donGia" name="donGia" min="500000" required>
+    </div>
+    <div>
+        <label for="dienTich">Diện tích (m2):</label>
+        <input type="number" id="dienTich" name="dienTich" min="20" required>
+    </div>
+    <button type="submit">Thêm mới</button>
+</form>
+
+<div id="errorMessages" style="color: red;"></div>
+
+<script th:inline="javascript">
+    function validateForm() {
+        let errorMessages = "";
+        let maGiaoDich = document.getElementById("maGiaoDich").value;
+        let tenKhachHang = document.getElementById("khachHang").value;
+        let loaiDichVu = document.querySelector('input[name="loaiDichVu"]:checked');
+        let ngayGiaoDich = document.getElementById("ngayGiaoDich").value;
+        let donGia = document.getElementById("donGia").value;
+        let dienTich = document.getElementById("dienTich").value;
+
+        if (!maGiaoDich.match(/^MGD-\d{4}$/)) {
+            errorMessages += "Mã giao dịch không hợp lệ. ";
+        }
+        if (!tenKhachHang) {
+            errorMessages += "Vui lòng chọn tên khách hàng. ";
+        }
+        if (!loaiDichVu) {
+            errorMessages += "Vui lòng chọn loại dịch vụ. ";
+        }
+        if (!ngayGiaoDich) {
+            errorMessages += "Vui lòng chọn ngày giao dịch. ";
+        }
+        if (new Date(ngayGiaoDich) < new Date()) {
+            errorMessages += "Ngày giao dịch phải lớn hơn ngày hiện tại. ";
+        }
+        if (donGia < 500000) {
+            errorMessages += "Đơn giá phải lớn hơn 500,000 VND. ";
+        }
+        if (dienTich < 20) {
+            errorMessages += "Diện tích phải lớn hơn 20 m2. ";
+        }
+
+        if (errorMessages !== "") {
+            document.getElementById("errorMessages").innerText = errorMessages;
+            return false;
+        }
+
+        return true;
+    }
+</script>
+</body>
+</html>

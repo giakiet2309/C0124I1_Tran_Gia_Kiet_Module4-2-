@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết giao dịch</title>
+</head>
+<body>
+<h2>Chi tiết giao dịch</h2>
+
+<table>
+    <tr>
+        <th>Mã giao dịch:</th>
+        <td th:text="${transaction.maGiaoDich}"></td>
+    </tr>
+    <tr>
+        <th>Loại dịch vụ:</th>
+        <td th:text="${transaction.loaiDichVu}"></td>
+    </tr>
+    <tr>
+        <th>Ngày giao dịch:</th>
+        <td th:text="${transaction.ngayGiaoDich}"></td>
+    </tr>
+    <tr>
+        <th>Đơn giá (VND/m2):</th>
+        <td th:text="${transaction.donGia}"></td>
+    </tr>
+    <tr>
+        <th>Diện tích (m2):</th>
+        <td th:text="${transaction.dienTich}"></td>
+    </tr>
+    <tr>
+        <th>Tên khách hàng:</th>
+        <td th:text="${transaction.maKhachHang.tenKhachHang}"></td>
+    </tr>
+    <tr>
+        <th>Số điện thoại khách hàng:</th>
+        <td th:text="${transaction.maKhachHang.soDienThoai}"></td>
+    </tr>
+    <tr>
+        <th>Email khách hàng:</th>
+        <td th:text="${transaction.maKhachHang.email}"></td>
+    </tr>
+</table>
+
+<form action="#" th:action="@{/transactions/delete/{id}(id=${transaction.id})}" method="post">
+    <button type="submit" onclick="return confirm('Bạn có muốn xóa giao dịch này không?')">Xóa</button>
+
+</form>
+<a th:href="@{/transactions}" > quay lai</a>
+</body>
+</html>
